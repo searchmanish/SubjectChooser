@@ -18,7 +18,7 @@ public class Subjects extends AppCompatActivity {
     private RecyclerView recView;
     private Adapter adapter;
     //private Button b;
-
+//Button is used for checking it on Fragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,7 +22,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyHolder> {
 
     private List<ListItem> listData;
     private LayoutInflater layoutInflater;
+    private ItemClickCallBack itemClickCallBack;
 
+    public  interface ItemClickCallBack
+    {
+   void onItemClick(int p);
+        void onIconClick(int p);
+    }
+    public void setItemClickCallBack(final ItemClickCallBack itemClickCallBack)
+    {
+    this.itemClickCallBack=itemClickCallBack;
+    }
     public Adapter(List<ListItem> listData, Context context)
     {
         this.layoutInflater=LayoutInflater.from(context);
@@ -49,7 +59,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyHolder> {
         return listData.size();
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder
+    public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
         private TextView subject;
@@ -61,6 +71,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyHolder> {
             subject=(TextView)itemView.findViewById(R.id.lbl_item_text);
             icon=(ImageView)itemView.findViewById(R.id.im_item_icon);
             container=itemView.findViewById(R.id.cont_item_root);
+            container.setOnClickListener(this);
+            icon.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+
+            if(view.getId()==R.id.cont_item_root)
+            {
+                itemClickCallBack.onItemClick(getAdapterPosition());
+            }else
+            {
+              itemClickCallBack.onItemClick(getAdapterPosition());
+            }
         }
     }
 }
